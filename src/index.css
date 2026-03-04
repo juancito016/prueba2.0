@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #630d16;
+  --color-primary-light: #8c1e2b;
+  --color-secondary: #000000;
+  --color-accent: #a1824a;
+  --color-crema: #fcfaf7;
+
+  --font-sans: 'Montserrat', sans-serif;
+  --font-serif: 'Playfair Display', serif;
+}
+
+@layer base {
+  body {
+    @apply bg-crema text-secondary font-sans;
+  }
+}
