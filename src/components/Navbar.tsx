@@ -32,7 +32,7 @@ export const Navbar: React.FC = () => {
                     onDoubleClick={() => navigate('/admin')}
                     title="Doble clic para acceso interno"
                 >
-                    <img src={logoUrl} alt="Churo Hogar Logo" className="h-10 md:h-14 w-auto object-contain mb-1" />
+                    <img src={logoUrl} alt="Churo Hogar Logo" className="h-14 md:h-19 w-auto object-contain mb-1" />
 
                 </div>
 

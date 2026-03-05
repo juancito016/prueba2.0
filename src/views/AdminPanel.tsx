@@ -253,7 +253,9 @@ export const AdminPanel: React.FC = () => {
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-6 gap-4">
                             <div>
                                 <h2 className="text-3xl font-extrabold text-gray-800">Tus Publicaciones</h2>
-                                <p className="text-gray-500 mt-1">Gestiona tu catálogo completo.</p>
+                                <p className="text-gray-500 mt-1">
+                                    Gestiona tu catálogo. Total registrado: <span className="font-bold text-gray-800">{inmuebles.length}</span> inmuebles.
+                                </p>
                             </div>
                             <button
                                 onClick={() => openModal()}
@@ -264,6 +266,11 @@ export const AdminPanel: React.FC = () => {
                         </div>
 
                         {/* Barra de Filtros */}
+                        <div className="flex justify-between items-center mb-2">
+                            <p className="text-xs font-semibold text-[#5e0b15] bg-[#5e0b15]/10 px-3 py-1 rounded-full w-max">
+                                Mostrando {filteredInmuebles.length} resultados de {inmuebles.length}
+                            </p>
+                        </div>
                         <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-4 mb-6">
                             <div className="flex-1 relative">
                                 <FaSearch className="absolute left-4 top-3.5 text-gray-400" />
@@ -312,6 +319,7 @@ export const AdminPanel: React.FC = () => {
                                 <table className="w-full text-left min-w-[700px]">
                                     <thead className="bg-gray-50 border-b">
                                         <tr className="text-gray-600 text-sm">
+                                            <th className="p-4 font-semibold w-12 text-center text-gray-400">Nº</th>
                                             <th className="p-4 font-semibold">Inmueble</th>
                                             <th className="p-4 font-semibold">Precio</th>
                                             <th className="p-4 font-semibold">Estado (Toggle)</th>
@@ -319,8 +327,9 @@ export const AdminPanel: React.FC = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {filteredInmuebles.map((inv) => (
+                                        {filteredInmuebles.map((inv, index) => (
                                             <tr key={inv.id} className="border-b last:border-0 hover:bg-gray-50">
+                                                <td className="p-4 text-center font-bold text-gray-400 text-sm">{index + 1}</td>
                                                 <td className="p-4 flex items-center gap-3">
                                                     <div className="w-12 h-12 bg-gray-200 rounded-md overflow-hidden">
                                                         {inv.imagenes?.[0] && <img src={getImageUrl(inv.imagenes[0].url_storage)} className="w-full h-full object-cover" alt="img" />}
