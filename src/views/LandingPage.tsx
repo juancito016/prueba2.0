@@ -24,6 +24,11 @@ export const LandingPage: React.FC = () => {
 
     const { inmuebles, loading, totalPages } = useInmuebles(page, filters);
 
+    const isFiltered = React.useMemo(() => {
+        if (!filters) return false;
+        return Object.values(filters).some(val => val && val.toString().trim() !== '');
+    }, [filters]);
+
     const handleSearch = (newFilters: any) => {
         setFilters(newFilters);
         setPage(0);
@@ -52,7 +57,7 @@ export const LandingPage: React.FC = () => {
                     </div>
 
                     {/* GRID */}
-                    {loading ? (
+                    {loading && page === 0 ? (
                         <SkeletonsGrid count={6} />
                     ) : inmuebles.length === 0 ? (
                         <div className="text-center py-20 text-gray-500">
@@ -69,54 +74,56 @@ export const LandingPage: React.FC = () => {
                     ) : (
                         <>
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                                {inmuebles.map((inmueble) => (
+                                {inmuebles.map((inmueble, index) => (
                                     <PropertyCard
-                                        key={inmueble.id}
+                                        key={`${inmueble.id}_${index}`}
                                         inmueble={inmueble}
                                     />
                                 ))}
                             </div>
 
-                            {/* PAGINACIÓN */}
-                            {totalPages > 1 && (
-                                <div className="mt-20 flex flex-col items-center gap-6">
-
-                                    <div className="w-24 h-[2px] bg-[#a1824a] opacity-40"></div>
-
-                                    <div className="flex items-center gap-3 flex-wrap justify-center">
-
-                                        <button
-                                            disabled={page === 0}
-                                            onClick={() => setPage(p => p - 1)}
-                                            className="px-4 py-2 text-sm uppercase tracking-widest font-bold text-gray-500 hover:text-black transition disabled:opacity-30"
-                                        >
-                                            Anterior
-                                        </button>
-
-                                        {[...Array(totalPages)].map((_, index) => (
-                                            <button
-                                                key={index}
-                                                onClick={() => setPage(index)}
-                                                className={`w-12 h-12 rounded-full text-sm font-bold transition-all duration-300
-                                                    ${page === index
-                                                        ? 'bg-[#630d16] text-white shadow-lg scale-110'
-                                                        : 'text-gray-600 hover:bg-[#f3f1ec]'
-                                                    }`}
-                                            >
-                                                {index + 1}
-                                            </button>
-                                        ))}
-
-                                        <button
-                                            disabled={page >= totalPages - 1}
-                                            onClick={() => setPage(p => p + 1)}
-                                            className="px-4 py-2 text-sm uppercase tracking-widest font-bold text-gray-500 hover:text-black transition disabled:opacity-30"
-                                        >
-                                            Siguiente
-                                        </button>
-
-                                    </div>
+                            {/* Mostrar Skeletons extra al fondo mientras se carga la siguiente página */}
+                            {loading && page > 0 && (
+                                <div className="mt-10">
+                                    <SkeletonsGrid count={3} />
                                 </div>
+                            )}
+
+                            {/* BOTÓN CARGAR MÁS o ALERTA DE BÚSQUEDA */}
+                            {page < totalPages - 1 && !loading && (
+                                <div className="mt-16 flex justify-center">
+                                    {isFiltered || page < 2 ? (
+                                        <button
+                                            onClick={() => setPage(p => p + 1)}
+                                            className="bg-transparent border-2 border-[#111827] text-[#111827] hover:bg-[#111827] hover:text-white font-sans font-black text-sm uppercase tracking-widest py-4 px-10 rounded-full transition-all duration-300 transform hover:-translate-y-1"
+                                        >
+                                            Cargar más propiedades
+                                        </button>
+                                    ) : (
+                                        <div className="text-center bg-white border border-gray-100 px-8 py-8 rounded-[2rem] w-full max-w-2xl mx-auto shadow-[0_10px_30px_-15px_rgba(0,0,0,0.1)]">
+                                            <p className="text-gray-600 mb-5 font-medium text-lg">
+                                                Hay cientos de propiedades exclusivas esperando por ti.
+                                            </p>
+                                            <button
+                                                onClick={() => window.scrollTo({ top: 300, behavior: 'smooth' })}
+                                                className="bg-[#630d16] text-white hover:bg-black font-sans font-bold text-sm uppercase tracking-[0.15em] py-4 px-8 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                                            >
+                                                Utiliza el Filtro Arriba ↑
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
+                            {/* BOTÓN FLOTANTE BÚSQUEDA (Móviles y Tablets) */}
+                            {page > 0 && (
+                                <button
+                                    onClick={() => window.scrollTo({ top: 300, behavior: 'smooth' })}
+                                    className="fixed bottom-8 right-8 z-50 bg-[#630d16] text-white p-4 rounded-full shadow-2xl hover:bg-black hover:scale-110 transition-all duration-300 md:hidden flex items-center justify-center gap-2"
+                                    aria-label="Volver a los filtros"
+                                >
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                                </button>
                             )}
                         </>
                     )}

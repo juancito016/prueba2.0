@@ -39,7 +39,21 @@ export const useLocationManager = () => {
 
     // Agregar Ciudad
     const addCiudad = async (nombre: string, departamento_id: string) => {
-        const { data, error } = await supabase.from('ciudades').insert({ nombre, departamento_id }).select('*, departamentos(nombre)').single();
+        const nombreLimpio = nombre.trim();
+
+        // Verificar si ya existe
+        const { data: existing } = await supabase
+            .from('ciudades')
+            .select('id')
+            .eq('departamento_id', departamento_id)
+            .ilike('nombre', nombreLimpio)
+            .maybeSingle();
+
+        if (existing) {
+            throw new Error(`La ciudad "${nombreLimpio}" ya está registrada en este departamento.`);
+        }
+
+        const { data, error } = await supabase.from('ciudades').insert({ nombre: nombreLimpio, departamento_id }).select('*, departamentos(nombre)').single();
         if (error) throw error;
         setCiudades(prev => [...prev, data]);
         return data;

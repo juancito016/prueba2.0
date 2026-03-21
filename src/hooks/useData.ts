@@ -17,7 +17,7 @@ export const useInmuebles = (page: number, filters: Record<string, string>) => {
 
             if (cachedData) {
                 const { formatted, count } = JSON.parse(cachedData);
-                setInmuebles(formatted);
+                setInmuebles(prev => page === 0 ? formatted : [...prev, ...formatted]);
                 setTotal(count);
                 setLoading(false);
                 return;
@@ -29,7 +29,7 @@ export const useInmuebles = (page: number, filters: Record<string, string>) => {
             const to = from + PAGE_SIZE - 1;
 
             let selectQuery = `*, barrios!inner(nombre, ciudad_id, ciudades!inner(nombre, departamento_id, departamentos!inner(nombre))), imagenes(url_storage)`;
-            let query = supabase.from('inmuebles').select(selectQuery, { count: 'exact' });
+            let query = supabase.from('inmuebles').select(selectQuery, { count: 'exact' }).eq('estado', 'Disponible');
 
             if (filters.departamento) {
                 query = query.eq('barrios.ciudades.departamento_id', filters.departamento);
@@ -58,7 +58,9 @@ export const useInmuebles = (page: number, filters: Record<string, string>) => {
                     ...item,
                     portadaUrl: item.imagenes?.[0]?.url_storage ? getImageUrl(item.imagenes[0].url_storage) : undefined
                 }));
-                setInmuebles(formatted);
+                // Si es la página 0 (nueva búsqueda), sobreescribir. Si es > 0, añadir al final.
+                setInmuebles(prev => page === 0 ? formatted : [...prev, ...formatted]);
+
                 if (count !== null) {
                     setTotal(count);
                 }
