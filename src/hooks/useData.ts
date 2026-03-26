@@ -28,7 +28,7 @@ export const useInmuebles = (page: number, filters: Record<string, string>) => {
             const from = page * PAGE_SIZE;
             const to = from + PAGE_SIZE - 1;
 
-            let selectQuery = `*, barrios!inner(nombre, ciudad_id, ciudades!inner(nombre, departamento_id, departamentos!inner(nombre))), imagenes(url_storage)`;
+            const selectQuery = `*, barrios!inner(nombre, ciudad_id, ciudades!inner(nombre, departamento_id, departamentos!inner(nombre))), imagenes(url_storage)`;
             let query = supabase.from('inmuebles').select(selectQuery, { count: 'exact' }).eq('estado', 'Disponible');
 
             if (filters.departamento) {

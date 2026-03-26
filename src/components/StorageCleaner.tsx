@@ -12,7 +12,7 @@ export const StorageCleaner: React.FC = () => {
 
     // Explorador Recursivo Dinámico que limita al prefijo indicado (ej: 'propiedades')
     const fetchAllStorageFiles = async (bucket: string, prefix: string = '') => {
-        let allFiles: string[] = [];
+        const allFiles: string[] = [];
         const { data: list, error } = await supabase.storage.from(bucket).list(prefix, { limit: 1000 });
         if (error || !list) return [];
 
@@ -44,7 +44,7 @@ export const StorageCleaner: React.FC = () => {
             if (dbError) throw dbError;
 
             const dbPaths = new Set(dbImages.map((img: any) => {
-                let url = img.url_storage as string;
+                const url = img.url_storage as string;
                 if (url.startsWith('http')) {
                     const match = url.match(/fotos-inmuebles\/(.+)$/);
                     return match ? match[1] : url;

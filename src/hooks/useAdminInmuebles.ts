@@ -24,7 +24,7 @@ export const useAdminInmuebles = (
         const from = page * PAGE_SIZE;
         const to = from + PAGE_SIZE - 1;
 
-        let selectQuery = '*, imagenes(*), barrios!inner(nombre, ciudad_id, ciudades!inner(departamento_id))';
+        const selectQuery = '*, imagenes(*), barrios!inner(nombre, ciudad_id, ciudades!inner(departamento_id))';
         let query = supabase
             .from('inmuebles')
             .select(selectQuery, { count: 'exact' })
