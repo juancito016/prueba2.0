@@ -32,7 +32,9 @@ export const LandingPage: React.FC = () => {
     const handleSearch = (newFilters: any) => {
         setFilters(newFilters);
         setPage(0);
-        window.scrollTo({ top: 900, behavior: 'smooth' });
+        setTimeout(() => {
+            document.getElementById('inmuebles-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     };
 
     return (
@@ -42,7 +44,7 @@ export const LandingPage: React.FC = () => {
             <main className="flex-grow">
                 <SearchHero onSearch={handleSearch} initialFilters={filters} />
 
-                <section className="max-w-6xl mx-auto px-6 md:px-12 pt-2 pb-20">
+                <section id="inmuebles-grid" className="max-w-6xl mx-auto px-6 md:px-12 pt-2 pb-20 scroll-mt-24">
 
                     {/* Header */}
                     <div className="mb-16">
@@ -105,7 +107,7 @@ export const LandingPage: React.FC = () => {
                                                 Hay cientos de propiedades exclusivas esperando por ti.
                                             </p>
                                             <button
-                                                onClick={() => window.scrollTo({ top: 300, behavior: 'smooth' })}
+                                                onClick={() => document.getElementById('filtro-busqueda')?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
                                                 className="bg-[#630d16] text-white hover:bg-black font-sans font-bold text-sm uppercase tracking-[0.15em] py-4 px-8 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
                                             >
                                                 Utiliza el Filtro Arriba ↑
@@ -118,7 +120,7 @@ export const LandingPage: React.FC = () => {
                             {/* BOTÓN FLOTANTE BÚSQUEDA (Móviles y Tablets) */}
                             {page > 0 && (
                                 <button
-                                    onClick={() => window.scrollTo({ top: 300, behavior: 'smooth' })}
+                                    onClick={() => document.getElementById('filtro-busqueda')?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
                                     className="fixed bottom-8 right-8 z-50 bg-[#630d16] text-white p-4 rounded-full shadow-2xl hover:bg-black hover:scale-110 transition-all duration-300 md:hidden flex items-center justify-center gap-2"
                                     aria-label="Volver a los filtros"
                                 >

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../services/supabaseClient';
-import { FaBolt } from 'react-icons/fa';
+import { FaBolt, FaMapMarkerAlt, FaCity, FaMap, FaChevronDown } from 'react-icons/fa';
 import portadaUrl1 from './imagenes/casa.avif';
 
 interface SearchHeroProps {
@@ -150,31 +150,39 @@ export const SearchHero: React.FC<SearchHeroProps> = ({ onSearch, initialFilters
                 </div>
             </div>
 
-            {/* BUSCADOR COMPLETO RESTAURADO */}
-            <div className="mt-24 lg:mt-32 max-w-5xl mx-auto relative z-20">
+            <div id="filtro-busqueda" className="mt-24 lg:mt-32 max-w-5xl mx-auto relative z-20">
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-white/80 backdrop-blur-xl border border-white p-4 md:p-6 rounded-[2rem] shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] flex flex-col md:flex-row gap-4 w-full"
+                    className="bg-white/95 backdrop-blur-2xl border border-white/60 p-3 md:p-4 rounded-[32px] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.12)] flex flex-col md:flex-row gap-3 w-full items-center"
                 >
 
                     {/* Departamento */}
-                    <div className="flex-1">
+                    <div className="flex-1 relative group bg-[#f9f8f6] hover:bg-[#f0eee9] rounded-[24px] w-full transition-colors duration-300">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-[#a1824a]">
+                            <FaMapMarkerAlt size={16} />
+                        </div>
                         <select
-                            className="w-full p-4 md:p-5 bg-transparent border-b-2 border-gray-200 focus:border-[#630d16] text-gray-700 font-sans font-black text-sm uppercase tracking-widest focus:outline-none transition-colors appearance-none cursor-pointer"
+                            className="w-full pl-12 pr-10 py-5 bg-transparent text-[#4a4a4a] font-sans font-bold text-[13px] uppercase tracking-widest focus:outline-none appearance-none cursor-pointer"
                             value={selectedDepto}
                             onChange={handleDeptoChange}
                         >
-                            <option value="">¿Departamento?</option>
+                            <option value="">Departamento</option>
                             {departamentos.map(d => (
                                 <option key={d.id} value={d.id}>{d.nombre}</option>
                             ))}
                         </select>
+                        <div className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-[#630d16] pointer-events-none transition-colors">
+                            <FaChevronDown size={14} />
+                        </div>
                     </div>
 
                     {/* Ciudad */}
-                    <div className="flex-1">
+                    <div className="flex-1 relative group bg-[#f9f8f6] hover:bg-[#f0eee9] rounded-[24px] w-full transition-colors duration-300 disabled:opacity-50">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-[#a1824a]">
+                            <FaCity size={16} />
+                        </div>
                         <select
-                            className="w-full p-4 md:p-5 bg-transparent border-b-2 border-gray-200 focus:border-[#630d16] text-gray-700 font-sans font-black text-sm uppercase tracking-widest focus:outline-none transition-colors appearance-none disabled:opacity-30 cursor-pointer"
+                            className="w-full pl-12 pr-10 py-5 bg-transparent text-[#4a4a4a] font-sans font-bold text-[13px] uppercase tracking-widest focus:outline-none appearance-none cursor-pointer disabled:cursor-not-allowed"
                             value={selectedCiudad}
                             onChange={(e) => {
                                 setSelectedCiudad(e.target.value);
@@ -184,19 +192,25 @@ export const SearchHero: React.FC<SearchHeroProps> = ({ onSearch, initialFilters
                             }}
                             disabled={!selectedDepto}
                         >
-                            <option value="">¿Ciudad?</option>
+                            <option value="">Ciudad</option>
                             {ciudades.map(c => (
                                 <option key={c.id} value={c.id}>{c.nombre}</option>
                             ))}
                         </select>
+                        <div className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 group-hover:text-[#630d16] pointer-events-none transition-colors">
+                            <FaChevronDown size={14} />
+                        </div>
                     </div>
 
                     {/* Barrio Autocomplete */}
-                    <div className="flex-1 relative">
+                    <div className="flex-1 relative group bg-[#f9f8f6] hover:bg-[#f0eee9] rounded-[24px] w-full transition-colors duration-300">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-[#a1824a]">
+                            <FaMap size={16} />
+                        </div>
                         <input
                             type="text"
-                            placeholder="BARRIO (OPCIONAL)"
-                            className="w-full p-4 md:p-5 bg-transparent border-b-2 border-gray-200 focus:border-[#630d16] text-gray-700 font-sans font-black text-sm uppercase tracking-widest focus:outline-none transition-colors disabled:opacity-30 placeholder-gray-400"
+                            placeholder="BARRIO (OPC. )"
+                            className="w-full pl-12 pr-6 py-5 bg-transparent text-[#4a4a4a] font-sans font-bold text-[13px] uppercase tracking-widest focus:outline-none disabled:opacity-50 placeholder-gray-400"
                             value={barrioSearch}
                             onChange={(e) => {
                                 setBarrioSearch(e.target.value);
@@ -206,17 +220,18 @@ export const SearchHero: React.FC<SearchHeroProps> = ({ onSearch, initialFilters
                         />
 
                         {barrios.length > 0 && selectedBarrioId === '' && (
-                            <ul className="absolute z-10 w-full bg-white border border-gray-100 mt-2 rounded-[20px] shadow-2xl max-h-48 overflow-y-auto p-2">
+                            <ul className="absolute z-50 w-full bg-white border border-gray-100 mt-3 rounded-[24px] shadow-2xl max-h-56 overflow-y-auto p-2">
                                 {barrios.map(b => (
                                     <li
                                         key={b.id}
-                                        className="p-4 hover:bg-[#f3f1ec] rounded-2xl cursor-pointer font-sans text-sm font-bold text-gray-700 transition"
+                                        className="p-4 hover:bg-[#f9f8f6] rounded-[16px] cursor-pointer font-sans text-sm font-bold text-gray-700 transition-colors flex items-center gap-3"
                                         onClick={() => {
                                             setSelectedBarrioId(b.id);
                                             setBarrioSearch(b.nombre);
                                             setBarrios([]);
                                         }}
                                     >
+                                        <FaMapMarkerAlt className="text-[#a1824a] opacity-50" size={12} />
                                         {b.nombre}
                                     </li>
                                 ))}
@@ -225,10 +240,10 @@ export const SearchHero: React.FC<SearchHeroProps> = ({ onSearch, initialFilters
                     </div>
 
                     {/* Botón */}
-                    <div className="flex items-end">
+                    <div className="flex w-full md:w-auto mt-2 md:mt-0">
                         <button
                             type="submit"
-                            className="w-full md:w-auto bg-[#630d16] hover:bg-black text-white font-sans font-black text-sm uppercase tracking-[0.2em] py-5 px-10 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                            className="w-full md:w-auto bg-[#630d16] hover:bg-black text-white font-sans font-black text-[13px] uppercase tracking-[0.2em] py-5 px-12 rounded-[24px] transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-1 flex items-center justify-center gap-2"
                         >
                             Explorar
                         </button>
