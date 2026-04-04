@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, NavLink } from 'react-router-dom';
+import { useNavigate, NavLink, useLocation } from 'react-router-dom';
 import logoUrl from './imagenes/logo.png';
 
 export const Navbar: React.FC = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
 
@@ -12,8 +13,10 @@ export const Navbar: React.FC = () => {
             setIsScrolled(window.scrollY > 20);
         };
         window.addEventListener('scroll', handleScroll);
+        // Verificar valor inicial al montar/cambiar ruta
+        handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    }, [location.pathname]);
 
     const linkClasses = ({ isActive }: { isActive: boolean }) => {
         return `font-sans font-black text-xs md:text-sm uppercase tracking-[0.2em] transition-colors pb-1 border-b-2 ${isActive
@@ -22,8 +25,11 @@ export const Navbar: React.FC = () => {
             }`;
     };
 
+    const isHomePage = location.pathname === '/';
+    const showSolidBackground = isScrolled || !isHomePage;
+
     return (
-        <header className={`sticky top-0 z-50 transition-all duration-500 ease-in-out ${isScrolled ? 'bg-crema/90 backdrop-blur-xl shadow-sm py-2' : 'bg-transparent py-6'}`}>
+        <header className={`sticky top-0 z-50 transition-all duration-500 ease-in-out ${showSolidBackground ? 'bg-crema/95 backdrop-blur-xl shadow-md' : 'bg-transparent'} ${isScrolled ? 'py-2' : 'py-6'}`}>
             <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex justify-between items-center">
 
                 {/* Logo Section */}

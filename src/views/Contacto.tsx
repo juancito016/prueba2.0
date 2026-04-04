@@ -14,7 +14,7 @@ export const Contacto: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         const mensaje = `Hola, soy ${formData.nombre}. Mi correo es ${formData.email}. Te escribo de Churo Hogar: ${formData.mensaje}`;
-        const defaultPhone = '59167373467';
+        const defaultPhone = '59164303730';
         window.open(`https://wa.me/${defaultPhone}?text=${encodeURIComponent(mensaje)}`, '_blank');
     };
 
@@ -132,7 +132,7 @@ export const Contacto: React.FC = () => {
                         </div>
 
                         <a
-                            href="https://wa.me/59167373467"
+                            href="https://wa.me/59164303730"
                             target="_blank"
                             rel="noreferrer"
                             className="group bg-emerald-500 hover:bg-[#630d16] text-white p-8 rounded-[3rem] flex items-center justify-between shadow-2xl shadow-emerald-500/10 transition-all duration-500 transform hover:scale-[1.02]"
@@ -146,7 +146,7 @@ export const Contacto: React.FC = () => {
                                         WhatsApp Business
                                     </p>
                                     <p className="text-2xl font-black tracking-tight">
-                                        +591 67373467
+                                        +591 64303730
                                     </p>
                                 </div>
                             </div>
@@ -154,7 +154,7 @@ export const Contacto: React.FC = () => {
                         </a>
 
                         <a
-                            href="tel:+59167373467"
+                            href="tel:+59164303730"
                             className="group bg-white border border-gray-100 p-8 rounded-[3rem] flex items-center justify-between shadow-sm hover:shadow-xl transition-all duration-500"
                         >
                             <div className="flex items-center gap-8 text-gray-800">

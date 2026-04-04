@@ -23,13 +23,13 @@ export const Footer: React.FC = () => {
                 <div>
                     <h4 className="text-lg font-bold mb-4 text-white">Síguenos</h4>
                     <div className="flex justify-center md:justify-start gap-4">
-                        <a href="https://facebook.com" target="_blank" rel="noreferrer" className="h-12 w-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#1877F2] hover:scale-110 transition-all duration-300 text-white shadow-lg">
+                        <a href="https://www.facebook.com/share/1B6fcdgzmE/" target="_blank" rel="noreferrer" className="h-12 w-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#1877F2] hover:scale-110 transition-all duration-300 text-white shadow-lg">
                             <FaFacebook size={24} />
                         </a>
                         <a href="https://instagram.com" target="_blank" rel="noreferrer" className="h-12 w-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#E4405F] hover:scale-110 transition-all duration-300 text-white shadow-lg">
                             <FaInstagram size={24} />
                         </a>
-                        <a href="https://wa.me/59167373467" target="_blank" rel="noreferrer" className="h-12 w-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#25D366] hover:scale-110 transition-all duration-300 text-white shadow-lg">
+                        <a href="https://wa.me/59164303730" target="_blank" rel="noreferrer" className="h-12 w-12 bg-gray-800 rounded-full flex items-center justify-center hover:bg-[#25D366] hover:scale-110 transition-all duration-300 text-white shadow-lg">
                             <FaWhatsapp size={24} />
                         </a>
                     </div>

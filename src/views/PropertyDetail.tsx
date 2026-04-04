@@ -54,7 +54,7 @@ export const PropertyDetail: React.FC = () => {
     };
 
     const contactarWhatsapp = () => {
-        let phoneStr = inmueble.contacto ? inmueble.contacto.replace(/\D/g, '') : '59170000000';
+        let phoneStr = inmueble.contacto ? inmueble.contacto.replace(/\D/g, '') : '59164303730';
         if (phoneStr && !phoneStr.startsWith('591') && phoneStr.length <= 8) {
             phoneStr = '591' + phoneStr;
         }

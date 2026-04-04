@@ -15,11 +15,11 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ inmueble }) => {
 
     const contactarWhatsapp = (e: React.MouseEvent) => {
         e.stopPropagation(); // Prevenir que el click expanda o navegue a la vista de detalle
-        let phoneStr = inmueble.contacto ? inmueble.contacto.replace(/\D/g, '') : '59170000000';
+        let phoneStr = inmueble.contacto ? inmueble.contacto.replace(/\D/g, '') : '59164303730';
         if (phoneStr && !phoneStr.startsWith('591') && phoneStr.length <= 8) {
             phoneStr = '591' + phoneStr;
         }
-        if (!phoneStr) phoneStr = '59170000000';
+        if (!phoneStr) phoneStr = '59164303730';
 
         const mensaje = `¡Hola ChuroPago! Me interesa el inmueble "${inmueble.titulo}" que vi en la web por ${formatearPrecio(inmueble.precio, inmueble.moneda)}. ¿Me das más info?`;
         const url = `https://wa.me/${phoneStr}?text=${encodeURIComponent(mensaje)}`;
