@@ -47,6 +47,13 @@ export const useInmuebles = (page: number, filters: Record<string, string>) => {
                 query = query.eq('tipo_propiedad', filters.tipo_propiedad);
             }
 
+            if (filters.precio_min) {
+                query = query.gte('precio', Number(filters.precio_min));
+            }
+            if (filters.precio_max) {
+                query = query.lte('precio', Number(filters.precio_max));
+            }
+
             query = query.range(from, to).order('creado_at', { ascending: false });
 
             const { data, error, count } = await query;

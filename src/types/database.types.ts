@@ -1,4 +1,4 @@
-export type TipoPropiedad = 'Casa' | 'Lote';
+export type TipoPropiedad = 'Casa' | 'Lote' | 'Departamento';
 export type Moneda = 'Bs' | 'USD';
 export type EstadoInmueble = 'Disponible' | 'Vendido';
 

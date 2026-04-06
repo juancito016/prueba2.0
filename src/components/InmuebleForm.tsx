@@ -48,7 +48,7 @@ export const InmuebleForm: React.FC<FormProps> = ({ inmueble, adminId, onClose, 
         descripcion: inmueble?.descripcion || '',
         tipo_propiedad: inmueble?.tipo_propiedad || 'Casa',
         precio: inmueble?.precio || '',
-        moneda: inmueble?.moneda || 'Bs',
+        moneda: 'USD',
         superficie_terreno: inmueble?.superficie_terreno || '',
         superficie_construida: inmueble?.superficie_construida || '',
         habitaciones: inmueble?.habitaciones || 0,
@@ -245,29 +245,23 @@ export const InmuebleForm: React.FC<FormProps> = ({ inmueble, adminId, onClose, 
 
                         {/* Precios y Tipos */}
                         <div className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-1">Precio <span className="text-red-500">*</span></label>
+                                    <label className="block text-sm font-bold text-gray-700 mb-1">Precio en Dólares (USD) <span className="text-red-500">*</span></label>
                                     <input required type="number" step="any" name="precio" value={formData.precio} onChange={handleChange}
-                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-gray-50" />
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-gray-50" placeholder="Ej. 85000" />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-1">Moneda</label>
-                                    <select name="moneda" value={formData.moneda} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-gray-50">
-                                        <option value="Bs">Bs</option>
-                                        <option value="USD">USD</option>
+                                    <label className="block text-sm font-bold text-gray-700 mb-1">Tipo de Inmueble</label>
+                                    <select name="tipo_propiedad" value={formData.tipo_propiedad} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-gray-50">
+                                        <option value="Casa">Casa</option>
+                                        <option value="Lote">Lote</option>
+                                        <option value="Departamento">Departamento</option>
                                     </select>
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-sm font-bold text-gray-700 mb-1">Tipo</label>
-                                    <select name="tipo_propiedad" value={formData.tipo_propiedad} onChange={handleChange} className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-gray-50">
-                                        <option value="Casa">Casa</option>
-                                        <option value="Lote">Lote</option>
-                                    </select>
-                                </div>
-                                <div>
+                                <div className="md:col-span-1">
                                     <label className="block text-sm font-bold text-gray-700 mb-1">WhatsApp Contacto Directo <span className="text-gray-400 font-normal text-[11px]">(opcional)</span></label>
                                     <div className="flex bg-gray-50 border border-gray-300 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-[#5e0b15] focus-within:border-transparent">
                                         <span className="bg-gray-200 px-3 py-3 text-gray-600 font-bold border-r border-gray-300 flex items-center pointer-events-none">+591</span>

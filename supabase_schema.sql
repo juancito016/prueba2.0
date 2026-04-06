@@ -134,3 +134,7 @@ EXECUTE FUNCTION public.delete_storage_object();
 -- Añade el campo para el contacto directo de cada inmueble
 ALTER TABLE public.inmuebles 
 ADD COLUMN whatsapp_contacto text;
+
+-- INDICES PARA BUSQUEDAS RAPIDAS Y FILTROS (Tipos y Precio)
+CREATE INDEX IF NOT EXISTS idx_inmuebles_tipo_propiedad ON inmuebles(tipo_propiedad);
+CREATE INDEX IF NOT EXISTS idx_inmuebles_precio ON inmuebles(precio);
