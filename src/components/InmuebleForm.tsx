@@ -1,3 +1,17 @@
+/**
+ * InmuebleForm Component
+ * 
+ * Formulario modal completo para crear o editar inmuebles.
+ * Características:
+ * - Crear nuevos inmuebles
+ * - Editar inmuebles existentes
+ * - Gestión de ubicación (departamento → ciudad → barrio)
+ * - Carga y compresión de imágenes
+ * - Manejo de imágenes existentes
+ * - Validaciones de formulario
+ * - Integración con Supabase
+ */
+
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { supabase } from '../services/supabaseClient';
@@ -6,6 +20,36 @@ import { FaTimes, FaCamera, FaSpinner } from 'react-icons/fa';
 import { useLocationManager } from '../hooks/useLocationManager';
 import { getImageUrl } from '../utils/helpers';
 
+/**
+ * Props para el componente InmuebleForm
+ * 
+ * @interface FormProps
+ * @property {any} [inmueble] - Inmueble a editar (si está vacío, es modo creación)
+ *           Debe incluir: id, titulo, descripcion, tipo_propiedad, precio, etc.
+ *           Y relaciones: imagenes[], barrios { ciudades { departamentos } }
+ * 
+ * @property {string} adminId - ID del administrador/usuario autenticado
+ *           Necesario para asociar el inmueble con el admin propietario
+ * 
+ * @property {() => void} onClose - Callback para cerrar el modal del formulario
+ *           Se ejecuta cuando el usuario hace clic en cerrar o después de enviar
+ * 
+ * @property {() => void} onSuccess - Callback ejecutado después de crear/editar exitosamente
+ *           Típicamente se usa para recargar la lista de inmuebles
+ * 
+ * @description
+ * El formulario automáticamente detecta si está en modo:
+ * - CREACIÓN: si inmueble es undefined/null
+ * - EDICIÓN: si inmueble tiene datos
+ * 
+ * @example
+ * <InmuebleForm
+ *   inmueble={undefined}
+ *   adminId="admin-123"
+ *   onClose={() => setIsOpen(false)}
+ *   onSuccess={() => refreshList()}
+ * />
+ */
 interface FormProps {
     inmueble?: any;
     adminId: string;
@@ -54,7 +98,8 @@ export const InmuebleForm: React.FC<FormProps> = ({ inmueble, adminId, onClose, 
         habitaciones: inmueble?.habitaciones || 0,
         banos: inmueble?.banos || 0,
         estado: inmueble?.estado || 'Disponible',
-        contacto: inmueble?.contacto ? inmueble.contacto.replace('+591', '') : ''
+        contacto: inmueble?.contacto ? inmueble.contacto.replace('+591', '') : '',
+        map_url: inmueble?.map_url || ''  // ✅ NUEVO CAMPO
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
@@ -175,7 +220,8 @@ export const InmuebleForm: React.FC<FormProps> = ({ inmueble, adminId, onClose, 
                 estado: formData.estado,
                 barrio_id: finalBarrioId, // Usamos la UUID generada/obtenida
                 admin_id: adminId, // El id del auth obligatoriamente
-                contacto: formData.contacto ? formData.contacto : null
+                contacto: formData.contacto ? formData.contacto : null,
+                map_url: formData.map_url && formData.map_url.trim() !== '' ? formData.map_url.trim() : null // ✅ NUEVO CAMPO (opcional)
             };
 
             let newInmuebleId = inmueble?.id;
@@ -267,6 +313,19 @@ export const InmuebleForm: React.FC<FormProps> = ({ inmueble, adminId, onClose, 
                                         <span className="bg-gray-200 px-3 py-3 text-gray-600 font-bold border-r border-gray-300 flex items-center pointer-events-none">+591</span>
                                         <input type="tel" name="contacto" value={formData.contacto} onChange={handleChange} placeholder="Ej. 70012345" className="w-full px-3 py-3 bg-transparent focus:outline-none focus:ring-0 border-0" />
                                     </div>
+                                </div>
+                                {/* ✅ NUEVO CAMPO: Enlace de Google Maps */}
+                                <div className="md:col-span-1">
+                                    <label className="block text-sm font-bold text-gray-700 mb-1">Enlace Google Maps <span className="text-gray-400 font-normal text-[11px]">(opcional)</span></label>
+                                    <input
+                                        type="url"
+                                        name="map_url"
+                                        value={formData.map_url}
+                                        onChange={handleChange}
+                                        placeholder="https://www.google.com/maps/place/..."
+                                        className="w-full px-4 py-3 border border-gray-300 rounded-xl bg-gray-50 focus:ring-[#5e0b15] focus:border-[#5e0b15]"
+                                    />
+                                    <p className="text-xs text-gray-500 mt-1">Comparte la ubicación exacta desde Google Maps.</p>
                                 </div>
                             </div>
                         </div>

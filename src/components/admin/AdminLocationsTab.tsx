@@ -1,7 +1,75 @@
+/**
+ * AdminLocationsTab Component
+ * 
+ * Pestaña del panel administrativo para gestionar ubicaciones geográficas.
+ * Estructura jerárquica: Departamento → Ciudad → Barrio (creados dinámicamente)
+ * 
+ * Funcionalidades:
+ * - Agregar nuevos departamentos
+ * - Eliminar departamentos (con cascada de eliminación)
+ * - Agregar nuevas ciudades a un departamento
+ * - Eliminar ciudades
+ * - Ver barrios de una ciudad (administrados desde inmuebles)
+ * - Interfaz intuitiva con confirmaciones de eliminación
+ */
+
 import React, { useState } from 'react';
 import { FaBuilding, FaMapMarkerAlt, FaPlus, FaTrash } from 'react-icons/fa';
 import toast from 'react-hot-toast';
 
+/**
+ * Props para el componente AdminLocationsTab
+ * 
+ * @interface Props
+ * @property {any[]} departamentos - Lista de todos los departamentos
+ *           Estructura: { id: string, nombre: string }[]
+ *           Utilizado para mostrar el listado y selector
+ * 
+ * @property {any[]} ciudades - Lista de todas las ciudades
+ *           Estructura: { id: string, nombre: string, departamento_id: string }[]
+ *           Mostrado filtrado por departamento seleccionado
+ * 
+ * @property {(nombre: string) => Promise<any>} addDepartamento - Función para agregar departamento
+ *           Parámetro: nombre del nuevo departamento
+ *           Retorna: el departamento creado con su ID
+ * 
+ * @property {(id: string) => Promise<void>} deleteDepartamento - Función para eliminar departamento
+ *           Parámetro: ID del departamento a eliminar
+ *           ADVERTENCIA: Elimina en cascada todas las ciudades, barrios e inmuebles
+ * 
+ * @property {() => void} fetchCiudades - Función para recargar la lista de ciudades
+ *           Se ejecuta después de operaciones para mantener UI sincronizada
+ * 
+ * @property {() => void} fetchDepartamentos - Función para recargar la lista de departamentos
+ *           Se ejecuta después de operaciones para mantener UI sincronizada
+ * 
+ * @property {(nombre: string, deptoId: string) => Promise<any>} addCiudad - Función para agregar ciudad
+ *           Parámetros: nombre de la ciudad, ID del departamento padre
+ *           Retorna: la ciudad creada con su ID
+ * 
+ * @property {(id: string) => Promise<void>} deleteCiudad - Función para eliminar ciudad
+ *           Parámetro: ID de la ciudad a eliminar
+ *           NOTA: También elimina barrios, pero NO inmuebles (relación de integridad)
+ * 
+ * @description
+ * Este componente es responsable de toda la gestión de ubicaciones.
+ * IMPORTANTE: La estructura es jerárquica:
+ * - Departamento es el nivel más alto
+ * - Ciudades pertenecen a departamentos (cascada de eliminación)
+ * - Barrios pertenecen a ciudades (creados desde los inmuebles)
+ * 
+ * @example
+ * <AdminLocationsTab
+ *   departamentos={deptosFromParent}
+ *   ciudades={ciudadesFromParent}
+ *   addDepartamento={handleAddDepto}
+ *   deleteDepartamento={handleDeleteDepto}
+ *   fetchCiudades={refreshCiudades}
+ *   fetchDepartamentos={refreshDeptos}
+ *   addCiudad={handleAddCiudad}
+ *   deleteCiudad={handleDeleteCiudad}
+ * />
+ */
 interface Props {
     departamentos: any[];
     ciudades: any[];

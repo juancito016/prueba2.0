@@ -15,5 +15,10 @@
 @layer base {
   body {
     @apply bg-crema text-secondary font-sans;
+    background-image: url('/src/components/imagenes/fondo.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
   }
 }

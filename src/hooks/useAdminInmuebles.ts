@@ -16,6 +16,15 @@ export const useAdminInmuebles = (
 
     const PAGE_SIZE = 10;
 
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedSearchTerm(searchTerm);
+        }, 500); // 500ms debounce
+        return () => clearTimeout(handler);
+    }, [searchTerm]);
+
     // Leer inmuebles (paginado y filtrado en servidor)
     const fetchInmuebles = useCallback(async () => {
         if (!adminId) return;
@@ -30,8 +39,8 @@ export const useAdminInmuebles = (
             .select(selectQuery, { count: 'exact' })
             .eq('admin_id', adminId);
 
-        if (searchTerm) {
-            query = query.ilike('titulo', `%${searchTerm}%`);
+        if (debouncedSearchTerm) {
+            query = query.ilike('titulo', `%${debouncedSearchTerm}%`);
         }
         if (filterDepto) {
             query = query.eq('barrios.ciudades.departamento_id', filterDepto);
@@ -55,7 +64,7 @@ export const useAdminInmuebles = (
         }
 
         setLoading(false);
-    }, [adminId, page, searchTerm, filterDepto, filterCiudad, filterEstado]);
+    }, [adminId, page, debouncedSearchTerm, filterDepto, filterCiudad, filterEstado]);
 
     useEffect(() => {
         fetchInmuebles();

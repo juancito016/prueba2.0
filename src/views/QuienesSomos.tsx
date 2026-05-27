@@ -5,7 +5,7 @@ import { Compass, CheckCircle, Zap } from 'lucide-react';
 
 export const QuienesSomos: React.FC = () => {
     return (
-        <div className="min-h-screen bg-[#fcfaf7] flex flex-col font-sans selection:bg-red-900/10 selection:text-[#630d16]">
+        <div className="min-h-screen flex flex-col font-sans selection:bg-red-900/10 selection:text-[#630d16]">
             <Navbar />
 
             <main className="flex-grow pt-12 pb-32 px-8 max-w-7xl mx-auto">

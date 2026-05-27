@@ -10,9 +10,12 @@ export const useInmuebles = (page: number, filters: Record<string, string>) => {
 
     const PAGE_SIZE = 6;
 
+    const serializedFilters = JSON.stringify(filters);
+
     useEffect(() => {
         const fetchInmuebles = async () => {
-            const cacheKey = `inmuebles_${page}_${JSON.stringify(filters)}`;
+            const activeFilters = JSON.parse(serializedFilters);
+            const cacheKey = `inmuebles_${page}_${serializedFilters}`;
             const cachedData = sessionStorage.getItem(cacheKey);
 
             if (cachedData) {
@@ -31,27 +34,27 @@ export const useInmuebles = (page: number, filters: Record<string, string>) => {
             const selectQuery = `*, barrios!inner(nombre, ciudad_id, ciudades!inner(nombre, departamento_id, departamentos!inner(nombre))), imagenes(url_storage)`;
             let query = supabase.from('inmuebles').select(selectQuery, { count: 'exact' }).eq('estado', 'Disponible');
 
-            if (filters.departamento) {
-                query = query.eq('barrios.ciudades.departamento_id', filters.departamento);
+            if (activeFilters.departamento) {
+                query = query.eq('barrios.ciudades.departamento_id', activeFilters.departamento);
             }
-            if (filters.ciudad) {
-                query = query.eq('barrios.ciudad_id', filters.ciudad);
+            if (activeFilters.ciudad) {
+                query = query.eq('barrios.ciudad_id', activeFilters.ciudad);
             }
-            if (filters.barrio_id) {
-                query = query.eq('barrio_id', filters.barrio_id);
-            } else if (filters.barrio_search) {
-                query = query.ilike('barrios.nombre', `%${filters.barrio_search}%`);
-            }
-
-            if (filters.tipo_propiedad) {
-                query = query.eq('tipo_propiedad', filters.tipo_propiedad);
+            if (activeFilters.barrio_id) {
+                query = query.eq('barrio_id', activeFilters.barrio_id);
+            } else if (activeFilters.barrio_search) {
+                query = query.ilike('barrios.nombre', `%${activeFilters.barrio_search}%`);
             }
 
-            if (filters.precio_min) {
-                query = query.gte('precio', Number(filters.precio_min));
+            if (activeFilters.tipo_propiedad) {
+                query = query.eq('tipo_propiedad', activeFilters.tipo_propiedad);
             }
-            if (filters.precio_max) {
-                query = query.lte('precio', Number(filters.precio_max));
+
+            if (activeFilters.precio_min) {
+                query = query.gte('precio', Number(activeFilters.precio_min));
+            }
+            if (activeFilters.precio_max) {
+                query = query.lte('precio', Number(activeFilters.precio_max));
             }
 
             query = query.range(from, to).order('creado_at', { ascending: false });
@@ -82,7 +85,7 @@ export const useInmuebles = (page: number, filters: Record<string, string>) => {
         };
 
         fetchInmuebles();
-    }, [page, filters]);
+    }, [page, serializedFilters]);
 
     return { inmuebles, loading, total, totalPages: Math.ceil(total / PAGE_SIZE) };
 };

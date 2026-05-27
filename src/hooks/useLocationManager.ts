@@ -5,6 +5,8 @@ export const useLocationManager = () => {
     const [departamentos, setDepartamentos] = useState<any[]>([]);
     const [ciudades, setCiudades] = useState<any[]>([]);
     const [loadingLocations, setLoadingLocations] = useState(false);
+    const [isLoadingCiudades, setIsLoadingCiudades] = useState(false);
+    const [errorCiudades, setErrorCiudades] = useState<any>(null);
 
     // Fetch Departamentos
     const fetchDepartamentos = useCallback(async () => {
@@ -20,6 +22,22 @@ export const useLocationManager = () => {
         const { data, error } = await supabase.from('ciudades').select('*, departamentos(nombre)').order('nombre');
         if (!error && data) setCiudades(data);
         setLoadingLocations(false);
+    }, []);
+
+    // Obtener ciudades filtradas por departamento (uso en UI para mejorar UX)
+    const getCiudadesByDepto = useCallback(async (departamento_id: string) => {
+        setIsLoadingCiudades(true);
+        setErrorCiudades(null);
+        setCiudades([]);
+        const { data, error } = await supabase
+            .from('ciudades')
+            .select('id,nombre')
+            .eq('departamento_id', departamento_id)
+            .order('nombre');
+        if (!error && data) setCiudades(data);
+        if (error) setErrorCiudades(error);
+        setIsLoadingCiudades(false);
+        return { data, error };
     }, []);
 
     // Agregar Departamento
@@ -98,8 +116,11 @@ export const useLocationManager = () => {
         departamentos,
         ciudades,
         loadingLocations,
+        isLoadingCiudades,
+        errorCiudades,
         fetchDepartamentos,
         fetchCiudades,
+        getCiudadesByDepto,
         addDepartamento,
         deleteDepartamento,
         addCiudad,

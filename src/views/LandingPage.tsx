@@ -38,7 +38,7 @@ export const LandingPage: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#fcfaf7] flex flex-col">
+        <div className="min-h-screen flex flex-col">
             <Navbar />
 
             <main className="flex-grow">
@@ -51,11 +51,11 @@ export const LandingPage: React.FC = () => {
                         <h2 className="text-5xl md:text-6xl font-serif font-black text-[#111827] mb-4">
                             Inmuebles <span className="italic font-light text-[#a1824a]">Destacados</span>
                         </h2>
-
+                        {/* texto eliminado 
                         <p className="text-gray-500 text-lg max-w-xl leading-relaxed">
                             Propiedades seleccionadas estratégicamente con alto potencial
                             y excelente ubicación.
-                        </p>
+                        </p>*/}
                     </div>
 
                     {/* GRID */}
@@ -103,9 +103,6 @@ export const LandingPage: React.FC = () => {
                                         </button>
                                     ) : (
                                         <div className="text-center bg-white border border-gray-100 px-8 py-8 rounded-[2rem] w-full max-w-2xl mx-auto shadow-[0_10px_30px_-15px_rgba(0,0,0,0.1)]">
-                                            <p className="text-gray-600 mb-5 font-medium text-lg">
-                                                Hay cientos de propiedades exclusivas esperando por ti.
-                                            </p>
                                             <button
                                                 onClick={() => document.getElementById('filtro-busqueda')?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
                                                 className="bg-[#630d16] text-white hover:bg-black font-sans font-bold text-sm uppercase tracking-[0.15em] py-4 px-8 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"

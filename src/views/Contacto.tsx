@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
-import { Phone, Mail, User, ArrowRight } from 'lucide-react';
+import { Mail, User, ArrowRight } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 
 export const Contacto: React.FC = () => {
@@ -19,7 +19,7 @@ export const Contacto: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#fcfaf7] flex flex-col font-sans selection:bg-red-900/10 selection:text-[#630d16]">
+        <div className="min-h-screen flex flex-col font-sans selection:bg-red-900/10 selection:text-[#630d16]">
             <Navbar />
 
             <main className="flex-grow pt-12 pb-32 px-8 max-w-7xl mx-auto">
@@ -28,7 +28,7 @@ export const Contacto: React.FC = () => {
                 <div className="text-center mb-32 space-y-8">
                     <h1 className="text-7xl md:text-9xl font-serif font-black leading-[1.03] italic tracking-tighter text-gray-900">
                         Hablemos de tu futuro <br />
-                        <span className="text-[#630d16] not-italic">hogar.</span>
+                        <span className="text-[#3C0811] not-italic">hogar.</span>
                     </h1>
 
                     <p className="text-gray-400 text-xl font-medium max-w-2xl mx-auto leading-relaxed">
@@ -153,25 +153,7 @@ export const Contacto: React.FC = () => {
                             <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
                         </a>
 
-                        <a
-                            href="tel:+59164303730"
-                            className="group bg-white border border-gray-100 p-8 rounded-[3rem] flex items-center justify-between shadow-sm hover:shadow-xl transition-all duration-500"
-                        >
-                            <div className="flex items-center gap-8 text-gray-800">
-                                <div className="w-16 h-16 bg-red-900/5 rounded-[1.5rem] flex items-center justify-center">
-                                    <Phone size={32} className="text-[#630d16]" />
-                                </div>
-                                <div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1">
-                                        Llamada Directa
-                                    </p>
-                                    <p className="text-2xl font-black tracking-tight">
-                                        Atención en horario de oficina
-                                    </p>
-                                </div>
-                            </div>
-                            <ArrowRight size={24} className="text-gray-300 group-hover:text-[#630d16] group-hover:translate-x-2 transition-transform" />
-                        </a>
+                        
 
                     </div>
 

@@ -38,7 +38,7 @@ export const Footer: React.FC = () => {
             <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400 text-sm">
                 <p>© {new Date().getFullYear()} Churo Hogar. Todos los derechos reservados.</p>
                 <p className="mt-3">
-                    Desarrollada por <a href="https://dev-studio-tau.vercel.app/?fbclid=IwRlRTSAQUSpVleHRuA2FlbQIxMABzcnRjBmFwcF9pZAo2NjI4NTY4Mzc5AAEer9O8NAsN-wS7gding1YTwjkzFhqi-PO1DYCiAdk3Ptk6DEIBzoZD41zY6RU_aem__3IAkYPghlgVnkswhF9Qgg" className="text-accent underline hover:text-white font-black tracking-widest transition duration-300 drop-shadow-md text-base">DEV-Studio</a>
+                    Desarrollada por <a href="https://dev-studio-tau.vercel.app/?fbclid=IwRlRTSAQUSpVleHRuA2FlbQIxMABzcnRjBmFwcF9pZAo2NjI4NTY4Mzc5AAEer9O8NAsN-wS7gding1YTwjkzFhqi-PO1DYCiAdk3Ptk6DEIBzoZD41zY6RU_aem__3IAkYPghlgVnkswhF9Qgg" target="_blank" className="text-accent underline hover:text-white font-black tracking-widest transition duration-300 drop-shadow-md text-base">DEV-Studio</a>
                 </p>
             </div>
         </footer>

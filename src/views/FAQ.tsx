@@ -44,7 +44,7 @@ export const FAQ: React.FC = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-[#fcfaf7] flex flex-col font-sans selection:bg-red-900/10 selection:text-[#630d16]">
+        <div className="min-h-screen flex flex-col font-sans selection:bg-red-900/10 selection:text-[#630d16]">
             <Navbar />
 
             <main className="flex-grow pt-12 pb-32 px-8 max-w-7xl mx-auto">
@@ -57,7 +57,7 @@ export const FAQ: React.FC = () => {
 
                     <h1 className="text-6xl md:text-8xl font-serif font-black italic tracking-tighter leading-[1.03] text-gray-900">
                         Guía legal <br />
-                        <span className="text-[#630d16] not-italic">y técnica</span>
+                        <span className="text-[#3C0811] not-italic">y técnica</span>
                     </h1>
 
                     <p className="text-gray-400 text-lg font-medium max-w-xl mx-auto leading-relaxed">
@@ -107,7 +107,7 @@ export const FAQ: React.FC = () => {
                     ))}
                 </div>
 
-                {/* CTA Final */}
+                {/* CTA Final 
                 <div className="mt-24 bg-[#1a1a1a] p-16 rounded-[3rem] text-center text-white relative overflow-hidden shadow-2xl">
                     <div className="absolute top-0 right-0 w-64 h-64 bg-red-900/10 rounded-full blur-[100px]" />
 
@@ -125,7 +125,7 @@ export const FAQ: React.FC = () => {
                     >
                         Quiero Asesoría Legal
                     </a>
-                </div>
+                </div>*/}
 
             </main>
 

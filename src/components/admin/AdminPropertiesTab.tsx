@@ -1,3 +1,18 @@
+/**
+ * AdminPropertiesTab Component
+ * 
+ * Pestaña del panel administrativo para gestionar inmuebles.
+ * Funcionalidades:
+ * - Listar todos los inmuebles del admin
+ * - Buscar por título
+ * - Filtrar por departamento, ciudad y estado
+ * - Paginación
+ * - Crear nuevo inmueble
+ * - Editar inmueble existente
+ * - Cambiar estado (Disponible ↔ Vendido)
+ * - Eliminar inmueble
+ */
+
 import React, { useState } from 'react';
 import { FaPlus, FaSearch, FaFilter, FaTrash, FaEdit } from 'react-icons/fa';
 import { useAdminInmuebles } from '../../hooks/useAdminInmuebles';
@@ -5,6 +20,35 @@ import { getImageUrl } from '../../utils/helpers';
 import toast from 'react-hot-toast';
 import { InmuebleForm } from '../InmuebleForm';
 
+/**
+ * Props para el componente AdminPropertiesTab
+ * 
+ * @interface Props
+ * @property {string} adminId - ID del administrador/usuario autenticado
+ *           Usado para filtrar los inmuebles del admin específico
+ * 
+ * @property {any[]} departamentos - Lista de todos los departamentos disponibles
+ *           Usado en el selector de filtros para búsqueda por ubicación
+ *           Estructura: { id: string, nombre: string }[]
+ * 
+ * @property {any[]} ciudades - Lista de todas las ciudades disponibles
+ *           Usado en el selector de filtros para búsqueda por ciudad
+ *           Estructura: { id: string, nombre: string, departamento_id: string }[]
+ * 
+ * @description
+ * Este componente maneja toda la interfaz de administración de propiedades.
+ * Comunica con:
+ * - Hook useAdminInmuebles: para CRUD y búsqueda
+ * - Componente InmuebleForm: para crear/editar modales
+ * - Toasts: para manejar notificaciones al usuario
+ * 
+ * @example
+ * <AdminPropertiesTab
+ *   adminId="admin-123"
+ *   departamentos={deptoList}
+ *   ciudades={ciudadList}
+ * />
+ */
 interface Props {
     adminId: string;
     departamentos: any[];

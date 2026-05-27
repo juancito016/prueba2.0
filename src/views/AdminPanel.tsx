@@ -69,7 +69,7 @@ export const AdminPanel: React.FC = () => {
             <Toaster position="top-right" />
             <header className="bg-white shadow-sm border-b px-4 md:px-8 py-4 flex flex-wrap justify-between items-center gap-4 z-10">
                 <div className="flex items-center gap-3">
-                    <img src={logoUrl} alt="ChuroPago Logo" className="h-10 md:h-12 w-auto object-contain" />
+                    <img src={logoUrl} alt="Churo Hogar Logo" className="h-10 md:h-12 w-auto object-contain" />
                     <div className="hidden sm:block">
                         <p className="text-xs text-gray-500 font-medium leading-none">Panel Maestro</p>
                     </div>
@@ -130,7 +130,7 @@ export const AdminPanel: React.FC = () => {
                     <div className="animate-fade-in-up">
                         <div className="mb-6">
                             <h2 className="text-3xl font-extrabold text-gray-800">Mantenimiento del Sistema</h2>
-                            <p className="text-gray-500 mt-1">Herramientas avanzadas para optimizar ChuroPago.</p>
+                            <p className="text-gray-500 mt-1">Herramientas avanzadas para optimizar Churo Hogar.</p>
                         </div>
                         <StorageCleaner />
                     </div>

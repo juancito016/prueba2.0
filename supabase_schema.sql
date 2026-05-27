@@ -1,4 +1,4 @@
--- Script SQL para Supabase de la plataforma ChuroPago
+-- Script SQL para Supabase de la plataforma Churo Hogar
 -- Se crearán las tablas, enums y RLS.
 
 -- ENUMS
