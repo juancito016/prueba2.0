@@ -43,7 +43,6 @@ export const SearchHero: React.FC<SearchHeroProps> = ({ onSearch, initialFilters
     const [showBudgetPicker, setShowBudgetPicker] = useState(false);
     const [showTipoPropiedadPicker, setShowTipoPropiedadPicker] = useState(false);
     const [locationStep, setLocationStep] = useState<'deptos' | 'ciudades'>('deptos');
-    const [tempDepto, setTempDepto] = useState<any>(null);
     const [barrioSuggestions, setBarrioSuggestions] = useState<any[]>([]);
     const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
     const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
@@ -138,11 +137,9 @@ export const SearchHero: React.FC<SearchHeroProps> = ({ onSearch, initialFilters
 
     const handleOpenLocationPicker = () => {
         setLocationStep('deptos');
-        setTempDepto(null);
         setShowLocationPicker(true);
     };
     const handleSelectDepto = async (depto: any) => {
-        setTempDepto(depto);
         setSelectedDepto(depto.id); // Guardamos oficialmente el departamento enseguida
         setSelectedCiudad(''); // Reseteamos la ciudad al cambiar de departamento
         setSelectedBarrioId('');
@@ -156,7 +153,6 @@ export const SearchHero: React.FC<SearchHeroProps> = ({ onSearch, initialFilters
         setSelectedCiudad(ciudad.id);
         setShowLocationPicker(false);
         setLocationStep('deptos');
-        setTempDepto(null);
     };
     const getLocationDisplayText = () => {
         const depto = departamentos.find(d => d.id === selectedDepto);
