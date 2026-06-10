@@ -54,7 +54,7 @@ export const Navbar: React.FC = () => {
                 <nav className="hidden lg:flex gap-10 items-center">
                     <NavLink to="/" className={linkClasses}>Inicio</NavLink>
                 
-                    <NavLink to="/faq" className={linkClasses}>Guía</NavLink>
+                    <NavLink to="/guia" className={linkClasses}>Guía</NavLink>
                     <NavLink to="/contacto" className={linkClasses}>Contacto</NavLink>
                 </nav>
 
@@ -83,7 +83,7 @@ export const Navbar: React.FC = () => {
                 <div className="lg:hidden absolute w-full left-0 top-full bg-[#FAF7F2]/95 backdrop-blur-3xl border-t border-gray-200 shadow-2xl transition-all duration-300">
                     <nav className="flex flex-col px-8 py-8 space-y-6">
                         <NavLink to="/" onClick={() => setIsMenuOpen(false)} className={linkClasses}>Inicio</NavLink>
-                        <NavLink to="/faq" onClick={() => setIsMenuOpen(false)} className={linkClasses}>Guía</NavLink>
+                        <NavLink to="/guia" onClick={() => setIsMenuOpen(false)} className={linkClasses}>Guía</NavLink>
                         <NavLink to="/contacto" onClick={() => setIsMenuOpen(false)} className={linkClasses}>Contacto</NavLink>
                     </nav>
                 </div>
