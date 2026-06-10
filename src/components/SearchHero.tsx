@@ -79,7 +79,11 @@ export const SearchHero: React.FC<SearchHeroProps> = ({ onSearch, initialFilters
             ) {
                 return;
             }
-            // Cerrar el panel
+            // Si un dropdown interno está abierto, el clic fuera solo debería cerrar el dropdown (manejado por el otro hook)
+            if (showLocationPicker || showBudgetPicker || showTipoPropiedadPicker) {
+                return;
+            }
+            // Cerrar el panel solo si no había menús abiertos
             setMobileFiltersOpen(false);
         };
         // Pequeño retraso para evitar que el clic que abrió el panel lo cierre inmediatamente
@@ -90,7 +94,7 @@ export const SearchHero: React.FC<SearchHeroProps> = ({ onSearch, initialFilters
             clearTimeout(timer);
             document.removeEventListener('mousedown', handleClickOutsideMobile);
         };
-    }, [mobileFiltersOpen]);
+    }, [mobileFiltersOpen, showLocationPicker, showBudgetPicker, showTipoPropiedadPicker]);
 
     // Resto de efectos y handlers (idénticos al original)
     useEffect(() => {
@@ -139,16 +143,17 @@ export const SearchHero: React.FC<SearchHeroProps> = ({ onSearch, initialFilters
     };
     const handleSelectDepto = async (depto: any) => {
         setTempDepto(depto);
+        setSelectedDepto(depto.id); // Guardamos oficialmente el departamento enseguida
+        setSelectedCiudad(''); // Reseteamos la ciudad al cambiar de departamento
+        setSelectedBarrioId('');
+        setBarrioSearch('');
         // Mostrar inmediatamente el paso de ciudades (UX perceptual)
         setLocationStep('ciudades');
         // Limpiar y cargar ciudades desde el hook (usa select reducido en columnas)
         await getCiudadesByDepto(depto.id);
     };
     const handleSelectCiudad = (ciudad: any) => {
-        setSelectedDepto(tempDepto.id);
         setSelectedCiudad(ciudad.id);
-        setSelectedBarrioId('');
-        setBarrioSearch('');
         setShowLocationPicker(false);
         setLocationStep('deptos');
         setTempDepto(null);
@@ -226,12 +231,12 @@ export const SearchHero: React.FC<SearchHeroProps> = ({ onSearch, initialFilters
             <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row items-stretch justify-between gap-8 lg:gap-4 relative z-10">
                 {/* LADO IZQUIERDO: Tipografía */}
                 <div className="w-full lg:w-[48%] flex flex-col justify-center text-left z-10 pb-4 lg:pb-0 select-none">
-                    <h2 className="text-[40px] md:text-[84px] lg:text-[102px] font-serif font-black text-[#3C0811] leading-[1.03] tracking-tighter mb-5">
-                        Tu lugar <br />
-                        <span className="italic font-normal text-[#A98953]">perfecto</span> <br />
-                        en <br />
-                        Bolivia.
-                    </h2>
+                    <h1 className="text-[40px] md:text-[84px] lg:text-[102px] font-serif font-black text-[#3C0811] leading-[1.03] tracking-tighter mb-5">
+                        Tu casa <br />
+                        <span className="italic font-normal text-[#A98953]">ideal</span> <br />
+                        en Tarija <br />
+                        y Bolivia.
+                    </h1>
                     <p className="text-[#7A7165] text-base md:text-lg lg:text-[18.5px] max-w-sm leading-relaxed font-medium pl-1">
                         Encuentra el hogar donde tu familia crecerá con tranquilidad
                     </p>

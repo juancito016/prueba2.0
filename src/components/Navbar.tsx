@@ -30,12 +30,15 @@ export const Navbar: React.FC = () => {
     const showSolidBackground = isScrolled;
 
     return (
-        <header
-            className={`sticky top-0 z-50 transition-all duration-500 ease-in-out ${showSolidBackground
-                    ? 'bg-[#FAF7F2]/90 backdrop-blur-md shadow-md'
-                    : 'bg-transparent'
-                } ${isScrolled ? 'py-2' : 'py-6'}`}
-        >
+        <>
+            {/* Placeholder to prevent layout shift when header becomes fixed */}
+            <div className="h-[104px] md:h-[124px] w-full shrink-0"></div>
+            <header
+                className={`fixed w-full top-0 z-50 transition-all duration-500 ease-in-out ${showSolidBackground
+                        ? 'bg-[#FAF7F2]/90 backdrop-blur-md shadow-md'
+                        : 'bg-transparent'
+                    } ${isScrolled ? 'py-2' : 'py-6'}`}
+            >
             <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex justify-between items-center">
 
                 {/* Logo Section */}
@@ -86,5 +89,6 @@ export const Navbar: React.FC = () => {
                 </div>
             )}
         </header>
+        </>
     );
 };
