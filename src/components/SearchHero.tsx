@@ -210,20 +210,20 @@ export const SearchHero: React.FC<SearchHeroProps> = ({ onSearch, initialFilters
     const openMobileFilters = () => {
         if (!mobileFiltersOpen) {
             setMobileFiltersOpen(true);
-            // Scroll suave al formulario después de que se muestre
+            // Scroll suave al formulario después de que se muestre, sin saltar al top
             setTimeout(() => {
-                filtroContainerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                filtroContainerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }, 150);
         }
     };
 
     return (
         <div
-            className="w-full relative overflow-visible pt-12 md:pt-16 pb-12 px-4 md:px-12 lg:px-24 font-sans"
+            className="w-full relative overflow-visible pt-6 md:pt-16 pb-6 md:pb-12 px-4 md:px-12 lg:px-24 font-sans"
             style={{ backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}
         >
             {/* Contenedor Principal Hero */}
-            <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row items-stretch justify-between gap-12 lg:gap-4 relative z-10">
+            <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row items-stretch justify-between gap-8 lg:gap-4 relative z-10">
                 {/* LADO IZQUIERDO: Tipografía */}
                 <div className="w-full lg:w-[48%] flex flex-col justify-center text-left z-10 pb-4 lg:pb-0 select-none">
                     <h2 className="text-[40px] md:text-[84px] lg:text-[102px] font-serif font-black text-[#3C0811] leading-[1.03] tracking-tighter mb-5">
@@ -238,7 +238,7 @@ export const SearchHero: React.FC<SearchHeroProps> = ({ onSearch, initialFilters
                 </div>
 
                 {/* LADO DERECHO: Tarjeta de fondo + Casa 3D */}
-                <div className="w-full lg:w-[52%] flex items-center justify-center lg:justify-end relative min-h-[360px] md:min-h-[440px] lg:min-h-[480px]">
+                <div className="w-full lg:w-[52%] flex items-center justify-center lg:justify-end relative min-h-[280px] md:min-h-[440px] lg:min-h-[480px]">
                     <div
                         className="absolute w-[75%] h-[80%] top-[8%] right-[5%] rounded-[48px] border border-white/50 shadow-2xl pointer-events-none z-0"
                         style={{

@@ -33,12 +33,12 @@ export const LandingPage: React.FC = () => {
         setFilters(newFilters);
         setPage(0);
         setTimeout(() => {
-            document.getElementById('inmuebles-grid')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            document.getElementById('inmuebles-grid')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }, 100);
     };
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="min-h-screen flex flex-col overflow-x-hidden">
             <Navbar />
 
             <main className="flex-grow">
