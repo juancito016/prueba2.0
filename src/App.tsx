@@ -11,7 +11,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/inmueble/:id" element={<PropertyDetail />} />
+        <Route path="/inmueble/:slug" element={<PropertyDetail />} />
         <Route path="/admin" element={<AdminPanel />} />
         <Route path="/quienes-somos" element={<QuienesSomos />} />
         <Route path="/guia" element={<FAQ />} />

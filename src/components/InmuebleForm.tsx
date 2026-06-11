@@ -206,6 +206,14 @@ export const InmuebleForm: React.FC<FormProps> = ({ inmueble, adminId, onClose, 
             // Lógica crítica: Obtener o crear el UUID del Barrio
             const finalBarrioId = await getOrCreateBarrio(formUbicacion.barrio_nombre, formUbicacion.ciudad_id);
 
+            // Generar slug único si no existe
+            let slug = inmueble?.slug;
+            if (!slug) {
+                const baseSlug = formData.titulo.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+                const randomSuffix = Math.random().toString(36).substring(2, 6);
+                slug = `${baseSlug}-${randomSuffix}`;
+            }
+
             // Asegurar Number casting para evitar 400 Bad Request
             const payload = {
                 titulo: formData.titulo,
@@ -221,7 +229,8 @@ export const InmuebleForm: React.FC<FormProps> = ({ inmueble, adminId, onClose, 
                 barrio_id: finalBarrioId, // Usamos la UUID generada/obtenida
                 admin_id: adminId, // El id del auth obligatoriamente
                 contacto: formData.contacto ? formData.contacto : null,
-                map_url: formData.map_url && formData.map_url.trim() !== '' ? formData.map_url.trim() : null // ✅ NUEVO CAMPO (opcional)
+                map_url: formData.map_url && formData.map_url.trim() !== '' ? formData.map_url.trim() : null, // ✅ NUEVO CAMPO (opcional)
+                slug: slug // ✅ Campo SLUG agregado
             };
 
             let newInmuebleId = inmueble?.id;

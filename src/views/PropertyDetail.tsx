@@ -6,7 +6,7 @@ import { getImageUrl } from '../utils/helpers';
 import logoUrl from '../components/imagenes/logo.webp';
 
 export const PropertyDetail: React.FC = () => {
-    const { id } = useParams<{ id: string }>();
+    const { slug } = useParams<{ slug: string }>();
     const [inmueble, setInmueble] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [activeImage, setActiveImage] = useState<string>('');
@@ -14,17 +14,25 @@ export const PropertyDetail: React.FC = () => {
 
     useEffect(() => {
         const fetchInmueble = async () => {
-            if (!id) return;
+            if (!slug) return;
 
-            const { data, error } = await supabase
+            const isUuid = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(slug);
+
+            let query = supabase
                 .from('inmuebles')
                 .select(`
           *,
           barrios (nombre, ciudades (nombre, departamentos (nombre))),
           imagenes (url_storage)
-        `)
-                .eq('id', id)
-                .single();
+        `);
+            
+            if (isUuid) {
+                query = query.eq('id', slug);
+            } else {
+                query = query.eq('slug', slug);
+            }
+
+            const { data, error } = await query.single();
 
             if (!error && data) {
                 setInmueble(data);
@@ -44,7 +52,7 @@ export const PropertyDetail: React.FC = () => {
         fetchInmueble();
 
         return () => { document.title = 'ChuroHogar | Tarija Vende, Tarija Compra'; };
-    }, [id]);
+    }, [slug]);
 
     const formatearPrecio = (precio: number, moneda: string) => {
         return new Intl.NumberFormat('es-BO', {
@@ -221,7 +229,7 @@ export const PropertyDetail: React.FC = () => {
                                     <span className="text-[#7A7165]">Barrio:</span>
                                     <span className="font-bold text-[#A98953]">{b?.nombre}</span>
                                 </div>
-                                {/* ✅ NUEVO: Enlace a Google Maps si existe el campo map_url */}
+                                {/* Enlace a Google Maps si existe el campo map_url */}
                                 {inmueble.map_url && inmueble.map_url.trim() !== '' && (
                                     <div className="mt-4 pt-2">
                                         <a

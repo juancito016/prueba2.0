@@ -162,6 +162,7 @@ export interface Inmueble {
     barrio_id?: string;
     admin_id: string;
     contacto?: string | null;
+    slug?: string;
     creado_at: string; // ISO String
 }
 

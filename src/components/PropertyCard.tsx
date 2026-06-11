@@ -57,7 +57,7 @@ export const PropertyCard: React.FC<PropertyCardProps> = ({ inmueble }) => {
 
     return (
         <div
-            onClick={() => navigate(`/inmueble/${inmueble.id}`)}
+            onClick={() => navigate(`/inmueble/${inmueble.slug || inmueble.id}`)}
             className="group bg-white/80 backdrop-blur-sm rounded-2xl border border-white/40 shadow-lg overflow-hidden col-span-1 flex flex-col h-full transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:bg-white/90 cursor-pointer"
         >
             <div className="w-full h-48 relative bg-[#E5D9C5] flex-shrink-0">
