@@ -14,8 +14,8 @@ import {
     FaArrowRight, FaDollarSign, FaCheck, FaHome, FaBuilding,
     FaLandmark, FaChevronRight, FaSpinner, FaTimes, FaTrashAlt, FaSlidersH, FaSearch
 } from 'react-icons/fa';
-import portadaUrl1 from './imagenes/casao.png';
-import fondotarjetaUrl from './imagenes/fondotarjeta.png';
+import portadaUrl1 from './imagenes/casao.webp';
+import fondotarjetaUrl from './imagenes/fondotarjeta.webp';
 
 interface SearchHeroProps {
     onSearch: (filters: any) => void;

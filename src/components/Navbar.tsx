@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, NavLink, useLocation } from 'react-router-dom';
-import logoUrl from './imagenes/logo.png';
+import logoUrl from './imagenes/logo.webp';
 
 export const Navbar: React.FC = () => {
     const navigate = useNavigate();

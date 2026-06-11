@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '../services/supabaseClient';
 import { FaWhatsapp, FaBed, FaBath, FaRulerCombined, FaMapMarkerAlt, FaExpandArrowsAlt } from 'react-icons/fa';
 import { getImageUrl } from '../utils/helpers';
-import logoUrl from '../components/imagenes/logo.png';
+import logoUrl from '../components/imagenes/logo.webp';
 
 export const PropertyDetail: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -200,7 +200,7 @@ export const PropertyDetail: React.FC = () => {
                                 <FaWhatsapp size={28} className="text-white" />
                                 Consultar por WhatsApp
                             </button>
-                            <p className="text-center text-xs text-white/60 mt-4 opacity-80">Asesor certificado por ChuroHogar</p>
+                            <p className="text-center text-xs text-white/60 mt-4 opacity-80">Certificado por ChuroHogar</p>
                         </div>
 
                         {/* Ubicación Detallada + Enlace a Google Maps */}

@@ -3,7 +3,7 @@ import { Toaster, toast } from 'react-hot-toast';
 import { supabase } from '../services/supabaseClient';
 import { useLocationManager } from '../hooks/useLocationManager';
 import { FaSignOutAlt, FaHome, FaMapMarkerAlt, FaCogs } from 'react-icons/fa';
-import logoUrl from '../components/imagenes/logo.png';
+import logoUrl from '../components/imagenes/logo.webp';
 
 // Import new components
 import { AdminLogin } from '../components/admin/AdminLogin';
